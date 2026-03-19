@@ -4,8 +4,15 @@
  * @author NALA
  */
 try {
+  var url = $request.url;
   var obj = JSON.parse($response.body);
-  obj.hasPro = true;
+
+  if (url.indexOf("/api/user") !== -1) {
+    obj.hasPro = true;
+  } else if (url.indexOf("/api/validateAndLinkPurchase") !== -1) {
+    obj.result = "valid";
+  }
+
   $done({ body: JSON.stringify(obj) });
 } catch (e) {
   $done({});
